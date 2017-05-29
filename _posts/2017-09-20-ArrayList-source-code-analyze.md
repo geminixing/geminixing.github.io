@@ -11,19 +11,19 @@ description:
 ArrayList是基于数组实现的List，支持快速随机访问，其容量能“自动”增长。本文分析的ArrayList代码来源与Android中的jdk7，与Oracle的java存在不少差异。
 
 
-####成员变量
+#### 成员变量
     private static final int MIN_CAPACITY_INCREMENT = 12; //最小增量
     transient Object[] array; //不可序列化的内部数组，所有操作都基于它
     int size; //实际元素个数
     protected transient int modCount; //基类AbstractList中的变量，修改次数，用于并发控制
 
-####构造器
+#### 构造器
 public ArrayList(int capacity) ：构造指定初始容量的数组
 public ArrayList()：构造一个空数组
 public ArrayList(Collection<? extends E> collection)：构造一个包含指定集合元素的数组
-####读取
+#### 读取
 E get(int index)：直接读取array的指定索引值
-####添加
+#### 添加
 （1）add(E e)：将指定的元素添加到列表的尾部。
 
     public boolean add(E object) {
@@ -68,10 +68,10 @@ E get(int index)：直接读取array的指定索引值
 （4）addAll(int index, Collection<? extends E> c)：将特定Collection中的元素添加到index位置，原理类似add单个元素
 
 
-####设置
+#### 设置
 E set(int index, E object)：将新元素放入array[Index]，返回原先此处的元素
 
-####清空
+#### 清空
 
     public void clear() {
         if (size != 0) {
@@ -81,7 +81,7 @@ E set(int index, E object)：将新元素放入array[Index]，返回原先此处
         }
     }
 
-####删除
+#### 删除
 
     public E remove(int index) {
         Object[] a = array;
@@ -107,7 +107,7 @@ E set(int index, E object)：将新元素放入array[Index]，返回原先此处
         。。。
         //删除指定范围元素，不包含toIndex所在位置，把后面不要的位置全部设为null
     }
-####迭代器
+#### 迭代器
     public Iterator<E> iterator() {
         return new ArrayListIterator();
     }
@@ -151,7 +151,7 @@ E set(int index, E object)：将新元素放入array[Index]，返回原先此处
             expectedModCount = ++modCount; //算作一次修改
         }
     }
-####其他方法
+#### 其他方法
 1、ensureCapacity(int)：确保容量不低于一个最小值
 
     public void ensureCapacity(int minimumCapacity) {
@@ -190,5 +190,5 @@ E set(int index, E object)：将新元素放入array[Index]，返回原先此处
         modCount++;
     }
 
-###Fail-Fast机制
+### Fail-Fast机制
 ArrayList采用了快速失败的机制，通过记录modCount参数来实现。在面对并发的修改时，迭代器很快就会完全失败，而不是冒着在将来某个不确定时间发生任意不确定行为的风险。
