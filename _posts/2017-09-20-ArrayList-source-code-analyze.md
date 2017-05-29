@@ -26,9 +26,11 @@ public ArrayList(Collection<? extends E> collection)：构造一个包含指定�
 ### 常用方法
 
 1、读取
+
 E get(int index)：直接读取array的指定索引值
  
 2、添加
+
 （1）add(E e)：将指定的元素添加到列表的尾部。
 {% highlight c++ linenos %}
     public boolean add(E object) {
@@ -75,6 +77,7 @@ E get(int index)：直接读取array的指定索引值
 （4）addAll(int index, Collection<? extends E> c)：将特定Collection中的元素添加到index位置，原理类似add单个元素
 
 3、设置
+
 E set(int index, E object)：将新元素放入array[Index]，返回原先此处的元素
  
 4、清空
@@ -117,6 +120,7 @@ E set(int index, E object)：将新元素放入array[Index]，返回原先此处
 {% endhighlight %}
  	
 6、其他
+
 ensureCapacity(int)：确保容量不低于一个最小值
 {% highlight c++ linenos %}
     public void ensureCapacity(int minimumCapacity) {
