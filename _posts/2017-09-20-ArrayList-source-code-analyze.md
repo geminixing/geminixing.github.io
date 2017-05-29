@@ -22,13 +22,12 @@ ArrayList是基于数组实现的List，支持快速随机访问，其容量能�
 public ArrayList(int capacity) ：构造指定初始容量的数组 
 public ArrayList()：构造一个空数组 
 public ArrayList(Collection<? extends E> collection)：构造一个包含指定集合元素的数组 
-<br /> 
+ 
 ### 常用方法
-
-##### 读取
+#### 读取
 E get(int index)：直接读取array的指定索引值
-<br /> 
-##### 添加
+ 
+#### 添加
 （1）add(E e)：将指定的元素添加到列表的尾部。
 {% highlight c++ linenos %}
     public boolean add(E object) {
@@ -74,11 +73,11 @@ E get(int index)：直接读取array的指定索引值
 （3）addAll(Collection<? extends E> c)：将特定Collection中的元素添加到Arraylist末尾，原理类似add单个元素
 （4）addAll(int index, Collection<? extends E> c)：将特定Collection中的元素添加到index位置，原理类似add单个元素
 
-<br /> 
-##### 设置
+ 
+#### 设置
 E set(int index, E object)：将新元素放入array[Index]，返回原先此处的元素
-<br /> 
-##### 清空
+ 
+#### 清空
 {% highlight c++ linenos %}
     public void clear() {
         if (size != 0) {
@@ -88,8 +87,8 @@ E set(int index, E object)：将新元素放入array[Index]，返回原先此处
         }
     }
 {% endhighlight %}
-<br /> 
-##### 删除
+ 
+#### 删除
 {% highlight c++ linenos %}
     public E remove(int index) {
         Object[] a = array;
@@ -116,10 +115,9 @@ E set(int index, E object)：将新元素放入array[Index]，返回原先此处
         //删除指定范围元素，不包含toIndex所在位置，把后面不要的位置全部设为null
     }
 {% endhighlight %}
+ 	
 
-<br /> 	
-
-##### 其他
+#### 其他
 ensureCapacity(int)：确保容量不低于一个最小值
 {% highlight c++ linenos %}
     public void ensureCapacity(int minimumCapacity) {
@@ -158,7 +156,7 @@ trimToSize：调整List大小，使容量和元素个数相同。
         }
         modCount++;
     }{% endhighlight %}
-<br /> 
+
 
 ### 迭代器
 {% highlight c++ linenos %}
@@ -206,6 +204,6 @@ trimToSize：调整List大小，使容量和元素个数相同。
         }
     }
 {% endhighlight %}
-<br /> 
+
 ### Fail-Fast机制
 ArrayList采用了快速失败的机制，通过记录modCount参数来实现。在面对并发的修改时，迭代器很快就会完全失败，而不是冒着在将来某个不确定时间发生任意不确定行为的风险。
