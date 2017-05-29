@@ -9,7 +9,7 @@ description:
 ---
 ### 概述
 ArrayList是基于数组实现的List，支持快速随机访问，其容量能“自动”增长。本文分析的ArrayList代码来源与Android中的jdk7，与Oracle的java存在不少差异。
-<br /> 
+
 ### 成员变量
 {% highlight c++ linenos %}
     private static final int MIN_CAPACITY_INCREMENT = 12; //最小增量
@@ -17,18 +17,18 @@ ArrayList是基于数组实现的List，支持快速随机访问，其容量能�
     int size; //实际元素个数
     protected transient int modCount; //基类AbstractList中的变量，修改次数，用于并发控制
 {% endhighlight %}
-<br /> 
+
 ### 构造器
 public ArrayList(int capacity) ：构造指定初始容量的数组，扩容时影响效率，建议预估元素数量并调此构造器 
 public ArrayList()：构造一个空数组 
 public ArrayList(Collection<? extends E> collection)：构造一个包含指定集合元素的数组 
-<br /> 
+
 ### 常用方法
 
-#### 读取
+1、读取
 E get(int index)：直接读取array的指定索引值
  
-#### 添加
+2、添加
 （1）add(E e)：将指定的元素添加到列表的尾部。
 {% highlight c++ linenos %}
     public boolean add(E object) {
@@ -74,10 +74,10 @@ E get(int index)：直接读取array的指定索引值
 （3）addAll(Collection<? extends E> c)：将特定Collection中的元素添加到Arraylist末尾，原理类似add单个元素
 （4）addAll(int index, Collection<? extends E> c)：将特定Collection中的元素添加到index位置，原理类似add单个元素
 
-#### 设置
+3、设置
 E set(int index, E object)：将新元素放入array[Index]，返回原先此处的元素
  
-#### 清空
+4、清空
 {% highlight c++ linenos %}
     public void clear() {
         if (size != 0) {
@@ -88,7 +88,7 @@ E set(int index, E object)：将新元素放入array[Index]，返回原先此处
     }
 {% endhighlight %}
  
-#### 删除
+5、删除
 {% highlight c++ linenos %}
     public E remove(int index) {
         Object[] a = array;
@@ -116,7 +116,7 @@ E set(int index, E object)：将新元素放入array[Index]，返回原先此处
     }
 {% endhighlight %}
  	
-#### 其他
+6、其他
 ensureCapacity(int)：确保容量不低于一个最小值
 {% highlight c++ linenos %}
     public void ensureCapacity(int minimumCapacity) {
