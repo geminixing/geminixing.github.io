@@ -205,5 +205,5 @@ E set(int index, E object)：将新元素放入array[Index]，返回原先此处
         modCount++;
     }{% endhighlight %}
 
-#### 5、Fail-Fast机制
+#### Fail-Fast机制
 ArrayList采用了快速失败的机制，通过记录modCount参数来实现。在面对并发的修改时，迭代器很快就会完全失败，而不是冒着在将来某个不确定时间发生任意不确定行为的风险。
