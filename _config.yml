@@ -1,6 +1,8 @@
 #### Exclude
 exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
 
+highlight: true
+
 #### Code Highlighter
 highlighter: pygments
 
