@@ -7,10 +7,10 @@ tags:
 categories: Java
 description: 
 ---
-#### 概述
+### 概述
 ArrayList是基于数组实现的List，支持快速随机访问，其容量能“自动”增长。本文分析的ArrayList代码来源与Android中的jdk7，与Oracle的java存在不少差异。
 <br /> 
-#### 成员变量
+### 成员变量
 {% highlight c++ linenos %}
     private static final int MIN_CAPACITY_INCREMENT = 12; //最小增量
     transient Object[] array; //不可序列化的内部数组，所有操作都基于它
@@ -18,17 +18,17 @@ ArrayList是基于数组实现的List，支持快速随机访问，其容量能�
     protected transient int modCount; //基类AbstractList中的变量，修改次数，用于并发控制
 {% endhighlight %}
 <br /> 
-#### 构造器
+### 构造器
 public ArrayList(int capacity) ：构造指定初始容量的数组 
 public ArrayList()：构造一个空数组 
 public ArrayList(Collection<? extends E> collection)：构造一个包含指定集合元素的数组 
 <br /> 
-#### 常用方法
+### 常用方法
 
-### 读取
+##### 读取
 E get(int index)：直接读取array的指定索引值
 <br /> 
-### 添加
+##### 添加
 （1）add(E e)：将指定的元素添加到列表的尾部。
 {% highlight c++ linenos %}
     public boolean add(E object) {
@@ -75,10 +75,10 @@ E get(int index)：直接读取array的指定索引值
 （4）addAll(int index, Collection<? extends E> c)：将特定Collection中的元素添加到index位置，原理类似add单个元素
 
 <br /> 
-### 设置
+##### 设置
 E set(int index, E object)：将新元素放入array[Index]，返回原先此处的元素
 <br /> 
-### 清空
+##### 清空
 {% highlight c++ linenos %}
     public void clear() {
         if (size != 0) {
@@ -89,7 +89,7 @@ E set(int index, E object)：将新元素放入array[Index]，返回原先此处
     }
 {% endhighlight %}
 <br /> 
-### 删除
+##### 删除
 {% highlight c++ linenos %}
     public E remove(int index) {
         Object[] a = array;
@@ -118,6 +118,47 @@ E set(int index, E object)：将新元素放入array[Index]，返回原先此处
 {% endhighlight %}
 
 <br /> 	
+
+##### 其他
+ensureCapacity(int)：确保容量不低于一个最小值
+{% highlight c++ linenos %}
+    public void ensureCapacity(int minimumCapacity) {
+        Object[] a = array;
+        //如果当前容量低于入参，按入参创建新数组
+        if (a.length < minimumCapacity) {
+            Object[] newArray = new Object[minimumCapacity];
+            System.arraycopy(a, 0, newArray, 0, size);
+            array = newArray;
+            modCount++;
+        }
+    }
+	{% endhighlight %}
+clear()：清空List
+{% highlight c++ linenos %}
+    public void clear() {
+        if (size != 0) { //将数组元素全部置为null，size归零
+            Arrays.fill(array, 0, size, null); 
+            size = 0;
+            modCount++;
+        }
+    }{% endhighlight %}
+trimToSize：调整List大小，使容量和元素个数相同。
+{% highlight c++ linenos %}
+    public void trimToSize() {
+        int s = size;
+        if (s == array.length) {
+            return;
+        }
+        if (s == 0) {
+            array = EmptyArray.OBJECT;
+        } else {
+            Object[] newArray = new Object[s];
+            System.arraycopy(array, 0, newArray, 0, s); //转移到新数组
+            array = newArray;
+        }
+        modCount++;
+    }{% endhighlight %}
+<br /> 
 
 ### 迭代器
 {% highlight c++ linenos %}
@@ -166,45 +207,5 @@ E set(int index, E object)：将新元素放入array[Index]，返回原先此处
     }
 {% endhighlight %}
 <br /> 
-### 其他方法
-# ensureCapacity(int)：确保容量不低于一个最小值
-{% highlight c++ linenos %}
-    public void ensureCapacity(int minimumCapacity) {
-        Object[] a = array;
-        //如果当前容量低于入参，按入参创建新数组
-        if (a.length < minimumCapacity) {
-            Object[] newArray = new Object[minimumCapacity];
-            System.arraycopy(a, 0, newArray, 0, size);
-            array = newArray;
-            modCount++;
-        }
-    }
-	{% endhighlight %}
-# clear()：清空List
-{% highlight c++ linenos %}
-    public void clear() {
-        if (size != 0) { //将数组元素全部置为null，size归零
-            Arrays.fill(array, 0, size, null); 
-            size = 0;
-            modCount++;
-        }
-    }{% endhighlight %}
-# trimToSize：调整List大小，使容量和元素个数相同。
-{% highlight c++ linenos %}
-    public void trimToSize() {
-        int s = size;
-        if (s == array.length) {
-            return;
-        }
-        if (s == 0) {
-            array = EmptyArray.OBJECT;
-        } else {
-            Object[] newArray = new Object[s];
-            System.arraycopy(array, 0, newArray, 0, s); //转移到新数组
-            array = newArray;
-        }
-        modCount++;
-    }{% endhighlight %}
-<br /> 
-#### Fail-Fast机制
+### Fail-Fast机制
 ArrayList采用了快速失败的机制，通过记录modCount参数来实现。在面对并发的修改时，迭代器很快就会完全失败，而不是冒着在将来某个不确定时间发生任意不确定行为的风险。
