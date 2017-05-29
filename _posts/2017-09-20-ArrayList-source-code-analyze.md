@@ -19,11 +19,12 @@ ArrayList是基于数组实现的List，支持快速随机访问，其容量能�
 {% endhighlight %}
 <br /> 
 ### 构造器
-public ArrayList(int capacity) ：构造指定初始容量的数组 
+public ArrayList(int capacity) ：构造指定初始容量的数组，扩容时影响效率，建议预估元素数量并调此构造器 
 public ArrayList()：构造一个空数组 
 public ArrayList(Collection<? extends E> collection)：构造一个包含指定集合元素的数组 
- 
+<br /> 
 ### 常用方法
+
 #### 读取
 E get(int index)：直接读取array的指定索引值
  
@@ -73,7 +74,6 @@ E get(int index)：直接读取array的指定索引值
 （3）addAll(Collection<? extends E> c)：将特定Collection中的元素添加到Arraylist末尾，原理类似add单个元素
 （4）addAll(int index, Collection<? extends E> c)：将特定Collection中的元素添加到index位置，原理类似add单个元素
 
- 
 #### 设置
 E set(int index, E object)：将新元素放入array[Index]，返回原先此处的元素
  
@@ -116,7 +116,6 @@ E set(int index, E object)：将新元素放入array[Index]，返回原先此处
     }
 {% endhighlight %}
  	
-
 #### 其他
 ensureCapacity(int)：确保容量不低于一个最小值
 {% highlight c++ linenos %}
@@ -156,7 +155,6 @@ trimToSize：调整List大小，使容量和元素个数相同。
         }
         modCount++;
     }{% endhighlight %}
-
 
 ### 迭代器
 {% highlight c++ linenos %}
