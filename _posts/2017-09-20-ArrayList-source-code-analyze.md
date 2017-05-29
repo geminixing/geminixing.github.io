@@ -115,10 +115,10 @@ E set(int index, E object)：将新元素放入array[Index]，返回原先此处
     @Override protected void removeRange(int fromIndex, int toIndex) {
         。。。
         //删除指定范围元素，不包含toIndex所在位置，把后面不要的位置全部设为null
-    }
-	{% endhighlight %}
+    }{% endhighlight %}
 
-### 迭代器
+	
+	### 迭代器
 {% highlight c++ linenos %}
     public Iterator<E> iterator() {
         return new ArrayListIterator();
