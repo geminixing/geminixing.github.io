@@ -33,8 +33,8 @@ defaults:
 paginate: 20
 
 #### Site
-title : 二手盗版挨踢攻城松狮
-tagline: Happy First
+title : Happy First
+tagline: 二手盗版挨踢攻城松狮
 assets: /assets
 baseurl: 
 
@@ -115,7 +115,6 @@ toc:
 #### Links
 links:
   谷歌: https://www.google.com
-  Jark's Blog: http://wuchong.me
 
 #### Comment
 duoshuo_shortname:    ## e.g. wuchong   your duoshuo short name.
