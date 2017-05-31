@@ -16,7 +16,7 @@ SparseArray是一种类似HashMap的映射结构，以int为键，查询时使�
     private boolean mGarbage = false; //是否需要进行gc
     private int[] mKeys; //键集
     private Object[] mValues; //值集
-    private int mSize; //存储元素数目
+    private int mSize； //元素数目
 {% endhighlight %}
 再看构造器：
 {% highlight c++ linenos %}
