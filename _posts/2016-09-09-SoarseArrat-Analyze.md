@@ -3,7 +3,7 @@ layout: post
 title: SparseArray初探
 tags:
 - Android
-categories: Happy-First-Android
+categories: Android
 description: 
 ---
 #### 概述 
