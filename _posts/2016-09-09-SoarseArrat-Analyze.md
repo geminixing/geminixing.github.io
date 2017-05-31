@@ -3,7 +3,7 @@ layout: post
 title: SparseArray初探
 tags:
 - Android
-categories: Happy First Android
+categories: Happy-First-Android
 description: 
 ---
 #### 概述 
@@ -83,22 +83,27 @@ SparseArray是一种类似HashMap的映射结构，以int为键，查询时使�
     }
 {% endhighlight %}
 3、delete：删除。此方法并未马上删除键值，只是先标记为可删除和待回收
-
-public void delete(int key) {
-int i = ContainerHelpers.binarySearch(mKeys, mSize, key);
-//查到key对应的索引，将value置为删除，标记可gc
-if (i >= 0) {
-if (mValues[i] != DELETED) {
-mValues[i] = DELETED;
-mGarbage = true;
-}
-}
-}
-
+{% highlight c++ linenos %}
+    public void delete(int key) {
+        int i = ContainerHelpers.binarySearch(mKeys, mSize, key);
+        //查到key对应的索引，将value置为删除，标记可gc
+        if (i >= 0) {
+            if (mValues[i] != DELETED) {
+                mValues[i] = DELETED;
+                mGarbage = true;
+            }
+        }
+    }
+{% endhighlight %}
 #### 其它方法 
 1、gc()，名为垃圾回收，实则是将可用的数组元素前移，并得出数组存储元素的数目，在其它依赖元素确切数目的方法中都要先行调用此方法。
+
 2、remove系列方法，可根据key、数组索引删除一个或多个元素。
+
 3、keyAt/valueAt（int），根据数组索引获取键/值，需先gc
+
 4、size()，获取大小，需先gc
+
 5、clear()，将values数组元素全部置为null，mSize置0，mGarbage置为false
+
 6、append(int key, E value)，插入新元素到最后
