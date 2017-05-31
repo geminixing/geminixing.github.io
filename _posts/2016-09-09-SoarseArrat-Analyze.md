@@ -1,17 +1,25 @@
-####概述
+---
+layout: post
+title: SparseArray初探
+tags:
+- Android
+categories: Happy First Android
+description: 
+---
+### 概述 
 SparseArray是一种类似HashMap的映射结构，以int为键，查询时使用二分法，不适合存储大量数据。
 
-####成员与构造器
+### 成员与构造器 
 首先看成员：
-
+{% highlight c++ linenos %}
     private static final Object DELETED = new Object();  //已删除标记
     private boolean mGarbage = false; //是否需要进行gc
     private int[] mKeys; //键集
     private Object[] mValues; //值集
     private int mSize; //存储元素数目
-
+{% endhighlight %}
 再看构造器：
-
+{% highlight c++ linenos %}
     public SparseArray() {
         this(10); //默认初始容量10
     }
@@ -26,10 +34,10 @@ SparseArray是一种类似HashMap的映射结构，以int为键，查询时使�
         }
         mSize = 0; //初始无任何元素
     }
-
-####主要方法
+{% endhighlight %}
+#### 主要方法 
 1、put：把指定key和value放到集合里
-
+{% highlight c++ linenos %}
     public void put(int key, E value) {
         //二分查找键集中是否有对应的key，有则返回数组的索引，否则返回lo按位取反的值，该值为负数
         int i = ContainerHelpers.binarySearch(mKeys, mSize, key); 
@@ -57,9 +65,9 @@ SparseArray是一种类似HashMap的映射结构，以int为键，查询时使�
             mSize++;
         }
     }
-
+{% endhighlight %}
 2、get：根据键查找值
-
+{% highlight c++ linenos %}
     public E get(int key) {
         return get(key, null); //设置默认值为null，调下面的方法
     }
@@ -73,9 +81,9 @@ SparseArray是一种类似HashMap的映射结构，以int为键，查询时使�
             return (E) mValues[i];
         }
     }
-
+{% endhighlight %}
 3、delete：删除。此方法并未马上删除键值，只是先标记为可删除和待回收
-
+{% highlight c++ linenos %}
     public void delete(int key) {
         int i = ContainerHelpers.binarySearch(mKeys, mSize, key);
         //查到key对应的索引，将value置为删除，标记可gc
@@ -86,8 +94,8 @@ SparseArray是一种类似HashMap的映射结构，以int为键，查询时使�
             }
         }
     }
-
-####其它方法
+{% endhighlight %}
+#### 其它方法 
 1、gc()，名为垃圾回收，实则是将可用的数组元素前移，并得出数组存储元素的数目，在其它依赖元素确切数目的方法中都要先行调用此方法。
 2、remove系列方法，可根据key、数组索引删除一个或多个元素。
 3、keyAt/valueAt（int），根据数组索引获取键/值，需先gc

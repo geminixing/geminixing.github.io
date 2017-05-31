@@ -4,7 +4,7 @@ title: ArrayList源码浅析
 tags:
 - Java
 - 集合
-categories: Java
+categories: Happy first Java
 description: 
 ---
 ### 概述
