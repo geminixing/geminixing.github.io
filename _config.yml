@@ -35,7 +35,7 @@ defaults:
 paginate: 20
 
 #### Site
-title : Happy First Memory
+title : Happy First
 tagline: 二手盗版挨踢攻城松狮
 assets: /assets
 baseurl: 
